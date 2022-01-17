@@ -7,6 +7,8 @@ on:
   push:
     branches:
       - 'main'
+    tags:
+      - 'v*'
 
 jobs:
   build:
@@ -33,3 +35,5 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/cocoarch:latest
+          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/cocoarch:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/cocoarch:buildcache,mode=max
